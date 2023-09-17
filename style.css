@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-image: url('banner.jpg'); /* Remplacez 'votre-image.jpg' par le chemin de votre image de fond */
+    background-size: cover; /* Pour que l'image couvre toute la fenêtre */
+    background-repeat: no-repeat; /* Pour éviter la répétition de l'image */
+    background-attachment: fixed; /* Pour fixer l'image en arrière-plan */
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        /* Styles for the input field and button */
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Styles for the weather icon */
+        .weather-icon {
+            font-size: 48px;
+            color: #FFD700;
+        }
+
+        /* Styles for the weather data */
+        #resultat {
+            background-color: #c9bebe;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            
+        }
+
+        #resultat h2 {
+            color: #007BFF;
+        }
+
+        #resultat p {
+            font-size: 16px;
+            color: #333;
+            margin: 5px 0;
+        }

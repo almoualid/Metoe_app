@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Météo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Météo</h1>
+    <label for="localisationInput"> <H2>Entrez votre localisation :</H2> </label>
+    <input type="text" id="localisationInput" placeholder="Ex. Rabat">
+    <button onclick="obtenirMeteo()">Obtenir la météo</button>
+
+    <div id="resultat" style="display: none;">
+        <h2>Météo pour Paris, FR</h2>
+        <p>Température : <span id="temperature"></span>°C</p>
+        <p>Conditions : <span id="conditions"></span></p>
+        <p>Humidité : <span id="humidite"></span>%</p>
+        <p>Pression : <span id="pression"></span> hPa</p> <br>
+        <i class="wi wi-day-sunny weather-icon"></i>
+    </div>
+    
+    
+    
+
+    <script>
+    function obtenirMeteo() {
+    const apiKey = '6ddf0566546eba9393b8cf045e7aa829'; 
+    const localisation = document.getElementById("localisationInput").value;
+    const resultat = document.getElementById("resultat");
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${localisation}&appid=${apiKey}&units=metric`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.name && data.sys && data.sys.country) {
+                // Mise à jour des éléments HTML avec les données météorologiques
+                resultat.querySelector("#temperature").textContent = data.main.temp;
+                resultat.querySelector("#conditions").textContent = data.weather[0].description;
+                resultat.querySelector("#humidite").textContent = data.main.humidity;
+                resultat.querySelector("#pression").textContent = data.main.pressure;
+                // Mise à jour de l'icône météorologique
+                resultat.querySelector(".weather-icon").className = `wi ${getWeatherIcon(data.weather[0].id)} weather-icon`;
+                // Mise à jour du titre avec la localisation
+                resultat.querySelector("h2").textContent = `Météo pour ${data.name}, ${data.sys.country}`;
+                // Rendre la div résultat visible
+                resultat.style.display = "block";
+            } else {
+                resultat.innerHTML = "Localisation non trouvée.";
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des données météorologiques', error);
+        });
+}
+            function getWeatherIcon(weatherCode) {
+            if (weatherCode >= 200 && weatherCode <= 232) {
+                return 'wi-thunderstorm';
+            } else if (weatherCode >= 300 && weatherCode <= 321) {
+                return 'wi-showers';
+            } else if (weatherCode >= 500 && weatherCode <= 531) {
+                return 'wi-rain';
+            } else if (weatherCode >= 600 && weatherCode <= 622) {
+                return 'wi-snow';
+            } else if (weatherCode === 800) {
+                return 'wi-day-sunny';
+            } else if (weatherCode >= 801 && weatherCode <= 804) {
+                return 'wi-day-cloudy';
+            } else {
+                return 'wi-cloudy';
+            }
+        }
+    </script>
+</body>
+</html>
